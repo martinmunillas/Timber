@@ -2,6 +2,7 @@
 #define HEADER_HPP_
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -12,6 +13,7 @@ public:
     void runProgram();
 
 private:
+    vector<string> statements; 
     string fileName;
     string file;
     void getFile();
