@@ -4,4 +4,4 @@ var variable = "Mundo";
 
 if variable equals "Mundo" => {
     variable = "mundo"
-}   
+};
