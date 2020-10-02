@@ -2,12 +2,18 @@
 #define VARSSTRUCT_HPP_
 #include <string>
 
-struct VarStruct {
-    VarStruct(bool iIsConstant, std::string iName) {
-        bool isConstant = iIsConstant;
-        std::string name = iName;
+using namespace std;
+
+struct VarStruct
+{
+    VarStruct(bool iIsConstant, string iName)
+    {
+        isConstant = iIsConstant;
+        string name = iName;
     }
-    
+
+    bool isConstant;
+    string name;
 };
 
 #endif

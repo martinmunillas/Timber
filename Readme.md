@@ -8,22 +8,18 @@ _timber is a programming language with the only purpouse of learning_
 
 _Features i want the language to have_
 
-[] constant declarationand asignment.  
-[] variable declarationand asignment.  
+[] constant declaration and asignment.  
+[] variable declaration and asignment.  
 [] logical and math operators.  
 [] if, if else, else.  
 [] for, while.  
 [] native functions (print, ).  
 
-Mira **Deployment** para conocer como desplegar el proyecto.
 
 ### What do you need 📋
 
 _All you need to write Timber code is a text editor and the Timber interpreter(unavailable for dowloading for the moment)_
 
-```
-Da un ejemplo
-```
 
 ### How to use it 🔧
 

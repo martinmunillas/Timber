@@ -55,6 +55,7 @@ void Interpreter::parseFile()
         {
             parseVars(statements[0]);
             statements.erase(statements.begin());
+            cout << vars[0].name << endl;
         }
         else
         {
