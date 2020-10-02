@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <regex>
+#include "../headers/varStruct.hpp"
 
 using namespace std;
 
@@ -22,11 +24,13 @@ void Interpreter::getFile()
             file += line;
         }
     }
-    tokenize();
+    parseFile();
 };
 
-void Interpreter::tokenize()
+void Interpreter::parseFile()
 {
+    vector<string> statements;
+
     int i = 0;
     while (file.size())
     {
@@ -43,14 +47,56 @@ void Interpreter::tokenize()
             cout << "Missing ';' at " << i << endl;
             exit(0);
         }
+    };
+
+    while (statements.size())
+    {
+        if (isVarDeclaration(statements[0]))
+        {
+            parseVars(statements[0]);
+            statements.erase(statements.begin());
+        }
+        else
+        {
+            cout << "Not var" << endl;
+            statements.erase(statements.begin());
+        }
     }
 };
 
 void Interpreter::runProgram()
 {
     getFile();
-    for (int i = 0; i < statements.size(); i++)
+};
+
+bool Interpreter::isVarDeclaration(string statement)
+{
+    regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
+    return regex_match(statement, re);
+}
+
+void Interpreter::parseVars(string statement)
+{
+    regex reConst("const *.*");
+    regex reVar("var *.*");
+    regex reName(" *[A-z]{1,} *");
+    if (regex_match(statement, reConst))
     {
-        cout << statements[i] << endl;
+        smatch m;
+        regex_search(statement, m, reName);
+        VarStruct fresh(true, m[0]);
+        vars.push_back(fresh);
+    }
+    else if (regex_match(statement, reVar))
+    {
+        smatch m;
+        regex_search(statement, m, reName);
+        VarStruct fresh(false, m[0]);
+        vars.push_back(fresh);
+    }
+    else
+    {
+        cout << "Wrong syntax '" << statement << "' <--" << endl;
+        exit(0);
     }
 }

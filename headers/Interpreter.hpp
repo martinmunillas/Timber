@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "./varStruct.hpp"
 
 using namespace std;
 
@@ -13,11 +14,13 @@ public:
     void runProgram();
 
 private:
-    vector<string> statements; 
+    vector<VarStruct> vars;
     string fileName;
     string file;
     void getFile();
-    void tokenize();
+    void parseFile();
+    void parseVars(string statement);
+    bool isVarDeclaration(string statement);
 };
 
 #endif

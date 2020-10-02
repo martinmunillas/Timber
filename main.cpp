@@ -12,5 +12,6 @@ int main()
 
     Interpreter timber(file);
     timber.runProgram();
+    
     return 0;
 }
