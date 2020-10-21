@@ -1,9 +1,8 @@
-#ifndef HEADER_HPP_
-#define HEADER_HPP_
+#ifndef INTERPRETER_HPP_
+#define INTERPRETER_HPP_
 
 #include <iostream>
 #include <vector>
-#include "./varStruct.hpp"
 
 using namespace std;
 
@@ -14,12 +13,11 @@ public:
     void runProgram();
 
 private:
-    vector<VarStruct> vars;
+    VariableKeeper variableKeeper;
     string fileName;
     string file;
     void getFile();
     void parseFile();
-    void parseVars(string statement);
     bool isVarDeclaration(string statement);
 };
 

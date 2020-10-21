@@ -1,24 +1,23 @@
 #include "../headers/Interpreter.hpp"
+#include "../headers/VariableKeeper.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <regex>
-#include "../headers/varStruct.hpp"
 
-using namespace std;
-
-Interpreter::Interpreter(string iFileName)
+Interpreter::Interpreter(std::string iFileName)
 {
     fileName = iFileName;
     file = "";
+    variableKeeper = VariableKeeper();
 }
 
 void Interpreter::getFile()
 {
-    ifstream src(fileName);
+    std::ifstream src(fileName);
     if (src.is_open())
     {
-        string line;
+        std::string line;
         while (getline(src, line))
         {
             file += line;
@@ -29,7 +28,7 @@ void Interpreter::getFile()
 
 void Interpreter::parseFile()
 {
-    vector<string> statements;
+    std::vector<std::string> statements;
 
     int i = 0;
     while (file.size())
@@ -49,20 +48,12 @@ void Interpreter::parseFile()
         }
     };
 
-    while (statements.size())
-    {
-        if (isVarDeclaration(statements[0]))
-        {
-            parseVars(statements[0]);
-            statements.erase(statements.begin());
-            cout << vars[0].name << endl;
+    for(int i = 0; i < statements.size(); i++){
+        if(isVarDeclaration(statements[i])) {
+            variableKeeper.setVariable(statements[i]);
         }
-        else
-        {
-            cout << "Not var" << endl;
-            statements.erase(statements.begin());
-        }
-    }
+    };
+
 };
 
 void Interpreter::runProgram()
@@ -70,30 +61,26 @@ void Interpreter::runProgram()
     getFile();
 };
 
-bool Interpreter::isVarDeclaration(string statement)
+bool Interpreter::isVarDeclaration(std::string statement)
 {
-    regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
+    std::regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
     return regex_match(statement, re);
 }
 
-void Interpreter::parseVars(string statement)
+void Interpreter::parseVar(std::string statement)
 {
-    regex reConst("const *.*");
-    regex reVar("var *.*");
-    regex reName(" *[A-z]{1,} *");
+    std::regex reConst("const *.*");
+    std::regex reVar("var *.*");
+    std::regex reName(" *[A-z]{1,} *");
     if (regex_match(statement, reConst))
     {
-        smatch m;
+        std::smatch m;
         regex_search(statement, m, reName);
-        VarStruct fresh(true, m[0]);
-        vars.push_back(fresh);
     }
     else if (regex_match(statement, reVar))
     {
-        smatch m;
+        std::smatch m;
         regex_search(statement, m, reName);
-        VarStruct fresh(false, m[0]);
-        vars.push_back(fresh);
     }
     else
     {
