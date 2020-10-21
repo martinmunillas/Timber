@@ -66,25 +66,3 @@ bool Interpreter::isVarDeclaration(std::string statement)
     std::regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
     return regex_match(statement, re);
 }
-
-void Interpreter::parseVar(std::string statement)
-{
-    std::regex reConst("const *.*");
-    std::regex reVar("var *.*");
-    std::regex reName(" *[A-z]{1,} *");
-    if (regex_match(statement, reConst))
-    {
-        std::smatch m;
-        regex_search(statement, m, reName);
-    }
-    else if (regex_match(statement, reVar))
-    {
-        std::smatch m;
-        regex_search(statement, m, reName);
-    }
-    else
-    {
-        cout << "Wrong syntax '" << statement << "' <--" << endl;
-        exit(0);
-    }
-}

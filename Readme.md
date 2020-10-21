@@ -1,5 +1,3 @@
-Todo:
-
 # Timber
 
 _timber is a programming language with the only purpouse of learning_
