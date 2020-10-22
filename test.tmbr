@@ -1,7 +1,0 @@
-const constant = "Hola";
-
-var variable = "Mundo";
-
-if variable == "Mundo" = {
-    print("Hello World");
-};

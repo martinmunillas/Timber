@@ -1,0 +1,7 @@
+const hello = "Hello";
+
+const world = "World";
+
+if True = {
+    print(Hello World);
+};

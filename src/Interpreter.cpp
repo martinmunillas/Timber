@@ -50,7 +50,9 @@ void Interpreter::parseFile()
 
     for(int i = 0; i < statements.size(); i++){
         if(isVarDeclaration(statements[i])) {
-            variableKeeper.setVariable(statements[i]);
+            variableKeeper.set(statements[i]);
+        } else if(isVarAssignment(statements[i])) {
+            variableKeeper.assign(statements[i]);
         }
     };
 
@@ -64,5 +66,11 @@ void Interpreter::runProgram()
 bool Interpreter::isVarDeclaration(std::string statement)
 {
     std::regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
+    return regex_match(statement, re);
+}
+
+bool Interpreter::isVarAssignment(std::string statement)
+{
+    std::regex re("[a-z]+ = .+;");
     return regex_match(statement, re);
 }

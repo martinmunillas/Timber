@@ -20,6 +20,7 @@ private:
     void getFile();
     void parseFile();
     bool isVarDeclaration(string statement);
+    bool isVarAssignment(string statement);
 };
 
 #endif

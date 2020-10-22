@@ -10,16 +10,19 @@ class VariableKeeper
 {
 public:
 
-    void setVariable(std::string statement);
-
-    std::vector<long long> getNumbers();
-
-    std::vector<std::string> getStrings();
+    void set(std::string statement);
+    void assign(std::string statement);
+    bool exists(std::string varName);
+    bool isConstant(std::string name);
+    void updateNumber(std::string varName, long long newValue);
 
 private:
-    void parseStatement(std::string statement);
-    long long setNumber();
-    std::string setString();
+    void parseDeclaration(std::string statement);
+    void parseAssignment(std::string statement);
+
+    long long setNumber(NumberT newNumber);
+    std::string setString(StringT newString);
+
     std::vector<NumberT> numbers;
     std::vector<StringT> strings;
 };
