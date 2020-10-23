@@ -74,6 +74,46 @@ void VariableKeeper::updateNumber(std::string varName, long long newValue)
     }
 };
 
+void VariableKeeper::updateString(std::string varName, std::string newValue)
+{
+    if (exists(varName))
+    {
+        for (int i = 0; i < strings.size(); i++)
+        {
+            if (varName == strings[i].name)
+            {
+                if(!strings[i].isConstant) {
+                    strings[i].value = newValue;
+                } else {
+                    throwError(varName + " value can't be change because is a constant");
+                }
+            }
+        }
+
+        for (int i = 0; i < numbers.size(); i++)
+        {
+            if (varName == numbers[i].name)
+            {
+                if(!numbers[i].isConstant) {
+                    StringT morph;
+                    morph.name = numbers[i].name;
+                    morph.isConstant = false;
+                    morph.value = newValue;
+                    strings.push_back(morph);
+                    numbers.erase(numbers.begin() + i);
+                } else {
+                    throwError(varName + " value can't be change because is a constant");
+                }
+            }
+        }
+    }
+    else
+    {
+        throwError(varName + " is not declared");
+    }
+};
+
+
 void VariableKeeper::parseDeclaration(std::string statement)
 {
 

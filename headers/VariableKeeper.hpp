@@ -15,6 +15,7 @@ public:
     bool exists(std::string varName);
     bool isConstant(std::string name);
     void updateNumber(std::string varName, long long newValue);
+    void updateString(std::string varName, std::string newValue);
 
 private:
     void parseDeclaration(std::string statement);
