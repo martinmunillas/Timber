@@ -1,7 +1,7 @@
 #ifndef MAIN_FUNCTION_STRUCT_HPP_
 #define MAIN_FUNCTION_STRUCT_HPP_
 
-#include "VariableKeeper.hpp"
+#include "../../VariableKeeper.hpp"
 
 struct FunctionT
 {

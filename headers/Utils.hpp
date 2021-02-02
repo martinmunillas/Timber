@@ -5,20 +5,11 @@
 
 #include <iostream>
 
-bool isNumber(std::string str)
-{
-    return std::regex_search(str, std::regex("[0-9]+"));
-};
+extern bool isNumber(std::string str);
 
-bool isString(std::string str)
-{
-    return std::regex_search(str, std::regex("\".*\""));
-};
+extern bool isString(std::string str);
 
-void throwError(std::string message) {
-    std::cout << message << std::endl;
-    exit(0);
-}
+extern void throwError(std::string message);
 
 
 #endif

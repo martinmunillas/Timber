@@ -1,14 +1,17 @@
 #include <iostream>
 
 #include "./headers/Interpreter.hpp"
+#include "./headers/Utils.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
-    std::string file;
-    std::cout << "Insert the file name :" << std::endl;
-    std::cin >> file;
+    if(argc > 2) {
+        throwError("Too many arguments");
+    } else if(argc < 2) {
+        throwError("No file specified");
+    }
 
-    Interpreter timber(file);
+    Interpreter timber(argv[1]);
     timber.runProgram();
     
     return 0;

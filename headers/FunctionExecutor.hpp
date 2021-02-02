@@ -10,13 +10,15 @@
 class FunctionExecutor
 {
 public:
-    FunctionExecutor(VariableKeeper fatherVariables);
+    FunctionExecutor(VariableKeeper &fatherVariables);
     void set(std::string function);
+    void execute(std::string call);
+
+private:
     bool exists(std::string name);
-    void execute(std::string name, std::vector<std::pair<std::string, std::string>> parameters);
-    private:
     void parseFunction(std::string function);
-    std::vector<FunctionT> functions; 
+    void parseParams(std::string params);
+    std::vector<FunctionT> functions;
 };
 
 #endif

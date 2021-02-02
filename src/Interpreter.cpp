@@ -1,15 +1,18 @@
-#include "../headers/Interpreter.hpp"
-#include "../headers/VariableKeeper.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <regex>
+
+#include "../headers/Interpreter.hpp"
+#include "../headers/VariableKeeper.hpp"
+#include "../headers/FunctionExecutor.hpp"
 
 Interpreter::Interpreter(std::string iFileName)
 {
     fileName = iFileName;
     file = "";
     variableKeeper = VariableKeeper();
+    // functionExecutor = FunctionExecutor(variableKeeper);
 }
 
 void Interpreter::getFile()
@@ -48,14 +51,25 @@ void Interpreter::parseFile()
         }
     };
 
-    for(int i = 0; i < statements.size(); i++){
-        if(isVarDeclaration(statements[i])) {
+    for (int i = 0; i < statements.size(); i++)
+    {
+        if (isVarDeclaration(statements[i]))
+        {
             variableKeeper.set(statements[i]);
-        } else if(isVarAssignment(statements[i])) {
+        }
+        else if (isVarAssignment(statements[i]))
+        {
             variableKeeper.assign(statements[i]);
         }
+        // else if (isFunctionDeclaration(statements[i]))
+        // {
+        //     functionExecutor.set(statements[i]);
+        // }
+        // else if (isFunctionExecution(statements[i]))
+        // {
+        //     functionExecutor.execute(statements[i]);
+        // }
     };
-
 };
 
 void Interpreter::runProgram()
@@ -65,12 +79,23 @@ void Interpreter::runProgram()
 
 bool Interpreter::isVarDeclaration(std::string statement)
 {
-    std::regex re("(const|var) +[A-z]{1,} *(= *.+)?;");
+    std::regex re("(const|var) +[a-zA-z]+ *(= *.+)?;");
     return regex_match(statement, re);
 }
 
 bool Interpreter::isVarAssignment(std::string statement)
 {
-    std::regex re("[a-z]+ = .+;");
+    std::regex re("[a-zA-z]+ = .+;");
     return regex_match(statement, re);
 }
+
+bool Interpreter::isFunctionDeclaration(string statement){
+    std::regex re("func *[a-zA-z]+ *\\(([a-zA-Z],?)*\\) *{.*};");
+    return regex_match(statement, re);
+
+};
+bool Interpreter::isFunctionExecution(string statement){
+
+    std::regex re("[a-zA-z]+ *\\(([a-zA-Z],)*\\) *;");
+    return regex_match(statement, re);
+};

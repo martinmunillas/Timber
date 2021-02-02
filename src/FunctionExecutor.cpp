@@ -3,28 +3,39 @@
 #include <regex>
 
 #include "../headers/FunctionExecutor.hpp"
+#include "../headers/VariableKeeper.hpp"
 #include "../headers/Utils.hpp"
 #include "../headers/structs/functions/main.hpp"
 
-void FunctionExecutor::set(std::string function) {
+FunctionExecutor::FunctionExecutor(VariableKeeper& fatherVariables){
+
+};
+
+void FunctionExecutor::set(std::string function)
+{
     parseFunction(function);
 };
-void FunctionExecutor::execute(std::string name, std::vector<std::pair<std::string, std::string>> parameters) {
+
+// , std::vector<std::pair<std::string, std::string>> parameters
+void FunctionExecutor::execute(std::string call){
 
 };
 
-bool FunctionExecutor::exists(std::string name) {
-    for(int i = 0; i < functions.size(); i++) {
-        if(functions[i].name == name) {
+bool FunctionExecutor::exists(std::string name)
+{
+    for (int i = 0; i < functions.size(); i++)
+    {
+        if (functions[i].name == name)
+        {
             return true;
         }
     }
     return false;
 };
 
-
-void FunctionExecutor::parseFunction(std::string function) {
-    std::regex re("function +([a-z]{1,30})\((.*)\) += + ({^;.}*);");
+void FunctionExecutor::parseFunction(std::string function)
+{
+    std::regex re("func +([a-z]{1,30})\\((.*)\\) *= *({.*});");
     std::smatch tokens;
     if (std::regex_search(function, tokens, re))
     {
@@ -44,5 +55,16 @@ void FunctionExecutor::parseFunction(std::string function) {
             std::cout << tokens[1];
             throwError(" is already declared");
         }
+    }
+};
+
+void FunctionExecutor::parseParams(std::string paramsString)
+{
+    std::regex re("(.+\\,)*");
+    std::smatch params;
+    std::regex_search(paramsString, params, re);
+    for (int i = 0; i < params.size(); i++)
+    {
+        std::cout << params[i] << ", ";
     }
 };

@@ -2,6 +2,6 @@ const hello = "Hello";
 
 const world = "World";
 
-if True = {
-    print(Hello World);
+if True => {
+    print(hello + world,);
 };
